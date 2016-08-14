@@ -23,7 +23,7 @@ When the audience hover their mouse over the bubbles, they can find the exact va
 Then I found that, the default y axis position of dimple.js is along the zero value of x axis.
 So I scaled the data along the x axis, in order to make the y axis at the very left of the whole chart.
 
-2. From my friend  ?Tianqi Zhang¡±, ¡°Actually, what is the meaning of the size of your circles? ¡±
+2. From my friend  "Tianqi Zhang¡±, ¡°Actually, what is the meaning of the size of your circles? ¡±
 
 The radius of each circle represents the total size of each group. But the default variable name of this feature is just ?n¡°. It is confusing for the people who are not familiar with this dataset.
 So I changed it into ¡°group_size¡±, which is more understandable. It appears whenever  the audience hover the circles.
