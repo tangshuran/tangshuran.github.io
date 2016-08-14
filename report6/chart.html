@@ -35,8 +35,8 @@
       myChart.addMeasureAxis("x", x_name);
       myChart.addMeasureAxis("y", y_name);
 	  myChart.addMeasureAxis("z", "size");
-      var mySeries1=myChart.addSeries(group_name, dimple.plot.bubble);
-	  mySeries1.addOrderRule(["(2,3]", "(3,4]", "(4,5]", "(5,7]", "(7,8]", "(8,9]", "(9,10]","(10,11]","(11,12]","(12,13]","(13,14]","(14,15]","(15,16]","(16,17]","(17,18]"]);
+      var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
+	  mySeries.addOrderRule(["(2,3]", "(3,4]", "(4,5]", "(5,7]", "(7,8]", "(8,9]", "(9,10]","(10,11]","(11,12]","(12,13]","(13,14]","(14,15]","(15,16]","(16,17]","(17,18]"]);
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
     });
@@ -69,6 +69,7 @@
       myChart.addMeasureAxis("y", y_name);
 	  myChart.addMeasureAxis("z", "size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
+	  mySeries.addOrderRule(["(2,3]", "(3,4]", "(4,5]", "(5,7]", "(7,8]", "(8,9]", "(9,10]","(10,11]","(11,12]","(12,13]","(13,14]","(14,15]","(15,16]","(16,17]","(17,18]"]);
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
     });
@@ -80,6 +81,7 @@
       myChart.addMeasureAxis("y", y_name);
 	  myChart.addMeasureAxis("z", "size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
+	  mySeries.addOrderRule(["None" , "ISCED 1","ISCED 2","ISCED 3B, C","ISCED 3A","ISCED 4","ISCED 5B","ISCED 5A, 6"]);
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
     });
@@ -91,6 +93,7 @@
       myChart.addMeasureAxis("y", y_name);
 	  myChart.addMeasureAxis("z", "size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
+	  mySeries.addOrderRule(["Native","First-Generation","Second-Generation"]);
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
     });
@@ -103,6 +106,7 @@
       myChart.addMeasureAxis("y", y_name);
 	  myChart.addMeasureAxis("z", "size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
+	  mySeries.addOrderRule(["0-10 books ","11-25 books ","26-100 books ","101-200 books ","201-500 books ","More than 500 books"]);
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
 	});
