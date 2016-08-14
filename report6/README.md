@@ -5,7 +5,7 @@ I tried to find the relationship between the students¡¯ academic performance and
 I selected several related features, and use them to construct new features for my investigation.
 The result illustrates that, statistically speaking, the students from more wealthy and higher educated family trend to achieve a better academic performance.
 ##Design
-### design decisions
+### Design decisions
 At first I intended to use point chart to represent each student with single point. 
 When I look around the dataset, I find that, most of the academic evaluation data are quantitive value, and family status is in both quantity and quality.
 In this way, I decided to use the y axis to represent the academic scores, and x axis for the quantitive family status features. The catagorial family status is shown with different color. 
@@ -23,12 +23,12 @@ When the audience hover their mouse over the bubbles, they can find the exact va
 Then I found that, the default y axis position of dimple.js is along the zero value of x axis.
 So I scaled the data along the x axis, in order to make the y axis at the very left of the whole chart.
 
-2. From my friend  "Tianqi Zhang¡±, ¡°Actually, what is the meaning of the size of your circles? ¡±
+2.From my friend  "Tianqi Zhang", "Actually, what is the meaning of the size of your circles? "
 
 The radius of each circle represents the total size of each group. But the default variable name of this feature is just ?n¡°. It is confusing for the people who are not familiar with this dataset.
 So I changed it into ¡°group_size¡±, which is more understandable. It appears whenever  the audience hover the circles.
 
-3. From online Feedback ¡°Raj¡±, ¡°The legends at the top seems to be not organized. They are in a mess.¡±
+3.From online Feedback "Raj", ¡°The legends at the top seems to be not organized. They are in a mess.¡±
 
 I realized that, the order of the legends is important for my audience to understand the quality sequence of the catagorial feature.
 So I added a Series¡¯ order rule in my codes. In this way, the legends are well organized in order.
