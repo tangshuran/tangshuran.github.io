@@ -8,7 +8,7 @@
   <script src="/report6/lib/d3.v3.4.8.js"></script>
   <script src="/report6/dist/dimple.v2.2.0.js"></script>
   <script type="text/javascript">
-    var svg = dimple.newSvg("#chartContainer", 590, 400);
+    var svg = dimple.newSvg("#chartContainer", 590, 450);
     d3.csv("/report6/data/data_origin.csv", function (data) {
       var myChart = new dimple.chart(svg, data);
       myChart.setBounds(80, 80, 480, 330)
