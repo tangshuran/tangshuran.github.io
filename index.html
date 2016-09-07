@@ -5,23 +5,28 @@
 <meta charset="utf-8">
 <html>
 <body>
+<!-- build 3 select boxes to help audience explore the data  -->
+<!-- first select box indicate y axis  -->
 <select id = "student_score">
 <option value="mean_math">Student Maths score</option>
 <option value="mean_reading">Student Reading score</option> 
 <option value="mean_science">Student Science score</option>
 </select>
+<!-- second select box indicate that, the data is grouped by which variable  -->
 <select id = "group_by">
 <option value="Parents_education_level">Highest Parents Education Level</option>
 <option value="Immigration_status">Immigration Status</option>
 <option value="books">Home Owned Books</option> 
 <option value="Parents_education_year">Highest Parents Education Time</option>
 </select>
+<!-- third select box indicate x axis  -->
 <select id = "family_status">
 <option value="mean_wealth">Family Wealth Status</option>
 <option value="mean_entertainment">Home Entertainment Status</option> 
 <option value="mean_possessions">Home Possession</option>
 </select>  
 <div id="chartContainer">
+  <!-- import d3 and dimple -->
   <script src="/lib/d3.v3.4.8.js"></script>
   <script src="/dist/dimple.v2.2.0.js"></script>
   <script type="text/javascript">
@@ -29,35 +34,43 @@
 	y_name='mean_math',
 	group_name='Parents_education_level';
 	var svg = dimple.newSvg("#chartContainer", 590, 460);
+	<!-- retrieve the csv data frame from the corresponding file, and show the default initial chart -->
+	<!-- In the default chart, students are grouped according to the education level of their parents -->
     d3.csv("/data/data_HISCED.csv", function (data) {
       var myChart = new dimple.chart(svg, data);
       myChart.setBounds(80, 80, 480, 300);
       myChart.addMeasureAxis("x", x_name);
       myChart.addMeasureAxis("y", y_name);
-	  myChart.addMeasureAxis("z", "size");
+	  <!-- SR_size refer to square root of the group size -->
+	  myChart.addMeasureAxis("z", "SR_size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
 	  mySeries.addOrderRule(["(2,3]", "(3,4]", "(4,5]", "(5,7]", "(7,8]", "(8,9]", "(9,10]","(10,11]","(11,12]","(12,13]","(13,14]","(14,15]","(15,16]","(16,17]","(17,18]"]);
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
     });
+	<!-- when the audience select one option from the box, code below invoke function updateChart for chart update -->
     d3.select('#student_score')
-		.on('change', function() {
-    var newData = d3.select(this).property('value');
-	y_name = newData;
-	updateChart();
+	.on('change', function() {
+		var newData = d3.select(this).property('value');
+		y_name = newData;
+		updateChart();
 	});
+	
 	d3.select('#group_by')
-		.on('change', function() {
-    var newData = d3.select(this).property('value');
-	group_name = newData;
-	updateChart();
+	.on('change', function() {
+		var newData = d3.select(this).property('value');
+		group_name = newData;
+		updateChart();
 	});
+	
 	d3.select('#family_status')
-		.on('change', function() {
-    var newData = d3.select(this).property('value');
-	x_name = newData;
-	updateChart();
+	.on('change', function() {
+		var newData = d3.select(this).property('value');
+		x_name = newData;
+		updateChart();
 	});
+	
+	
 	function updateChart() {
 	d3.select("svg").remove();
 	var svg = dimple.newSvg("#chartContainer", 590, 460);
@@ -67,7 +80,7 @@
       myChart.setBounds(80, 80, 480, 300)
       myChart.addMeasureAxis("x", x_name);
       myChart.addMeasureAxis("y", y_name);
-	  myChart.addMeasureAxis("z", "size");
+	  myChart.addMeasureAxis("z", "SR_size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
 	  mySeries.addOrderRule(["(2,3]", "(3,4]", "(4,5]", "(5,7]", "(7,8]", "(8,9]", "(9,10]","(10,11]","(11,12]","(12,13]","(13,14]","(14,15]","(15,16]","(16,17]","(17,18]"]);
       myChart.addLegend(60, 10, 510, 20, "right");
@@ -79,7 +92,7 @@
       myChart.setBounds(80, 80, 480, 300)
       myChart.addMeasureAxis("x", x_name);
       myChart.addMeasureAxis("y", y_name);
-	  myChart.addMeasureAxis("z", "size");
+	  myChart.addMeasureAxis("z", "SR_size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
 	  mySeries.addOrderRule(["None" , "ISCED 1","ISCED 2","ISCED 3B, C","ISCED 3A","ISCED 4","ISCED 5B","ISCED 5A, 6"]);
       myChart.addLegend(60, 10, 510, 20, "right");
@@ -91,20 +104,19 @@
       myChart.setBounds(80, 80, 480, 300)
       myChart.addMeasureAxis("x", x_name);
       myChart.addMeasureAxis("y", y_name);
-	  myChart.addMeasureAxis("z", "size");
+	  myChart.addMeasureAxis("z", "SR_size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
 	  mySeries.addOrderRule(["Native","First-Generation","Second-Generation"]);
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
-    });
-	
+    });	
 	}else{
 	d3.csv("/data/data_ST28Q01.csv", function (data) {
       var myChart = new dimple.chart(svg, data);
       myChart.setBounds(80, 80, 480, 300)
       myChart.addMeasureAxis("x", x_name);
       myChart.addMeasureAxis("y", y_name);
-	  myChart.addMeasureAxis("z", "size");
+	  myChart.addMeasureAxis("z", "SR_size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
 	  mySeries.addOrderRule(["0-10 books ","11-25 books ","26-100 books ","101-200 books ","201-500 books ","More than 500 books"]);
       myChart.addLegend(60, 10, 510, 20, "right");
