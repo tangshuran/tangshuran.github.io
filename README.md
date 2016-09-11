@@ -23,6 +23,12 @@ Then I think, the bubble chart maybe a good idea. Each catagorial feature is gro
 
 Consequently, it is clearly shown that x and y value is positive correlated for the bubbles.
 
+####Final Version: http://tangshuran.me/index.html
+Context information and a summary for the data calculation are introduced. The meaning of the drop down menu is illustrated.
+For better understanding of the chart, the key finding is stated in the contxt paragraph.
+
+
+
 ###Interaction or animation
 The audience can choose their own choice from the menu bar at the top of the chart. In this way, they can investigate a little about the data, and see relations between the different features.
 
