@@ -11,6 +11,25 @@
 <span id = "title">
 <h1>PISA 2012 - Family Wealth and Parent Education Correlate to Student academic Performance</h1>
 </span>
+<!-- Here are some context explaination  -->
+<div id = "context">
+<p>
+Around 510,000 students in 65 economies took part in the PISA 2012 assessment of reading, 
+mathematics and science globally, and some of them also took various surveys, such as 
+their family status,their attitude award school, and so on. In this visualization, the students are grouped 
+by parents' education related factors. The key finding is that, statistically speaking, the students from more
+wealthy and higher educated family trend to achieve a better academic performance.
+</p>
+<p>
+For each bubble in the below chart, its x axis value refers to the the mean of the family status index
+of the grouped students' families.  The family status indexes, such as wealth or entertainment, are derived
+from the variety and quantity of families' home possessions. Its y axis value represents the mean of the 
+academic performance score of the grouped students, for example, science and math. They are from the assessment
+taken by the students. Its z axis value shows the students number of each group. We can explore a little bit by
+select interesting options for the chart. Left selection box indicate the y axis, and right for the x axis. We 
+can choose which option to be used for grouping the students.
+</p>
+</div>
 <!-- build 3 select boxes to help audience explore the data  -->
 <!-- first select box indicate y axis  -->
 <select id = "student_score">
@@ -21,7 +40,7 @@
 <!-- second select box indicate that, the data is grouped by which variable  -->
 <select id = "group_by">
 <option value="Parents_education_level">Highest Parents Education Level</option>
-<option value="Immigration_status">Immigration Status</option>
+<!-- <option value="Immigration_status">Immigration Status</option> comment this option out, because it is not closely related-->
 <option value="books">Home Owned Books</option> 
 <option value="Parents_education_year">Highest Parents Education Time</option>
 </select>
@@ -36,6 +55,7 @@
   <script src="/lib/d3.v3.4.8.js"></script>
   <script src="/dist/dimple.v2.2.0.js"></script>
   <script type="text/javascript">
+    var colors=["#f7fbff","#deebf7","#c6dbef","#9ecae1","#6baed6","#4292c6","#2171b5","#08519c","#08306b"];
 	var x_name='mean_wealth',
 	y_name='mean_math',
 	group_name='Parents_education_level';
@@ -47,14 +67,29 @@
       myChart.setBounds(80, 80, 480, 300);
       myChart.addMeasureAxis("x", x_name);
       myChart.addMeasureAxis("y", y_name);
-	  <!-- SR_size refer to square root of the group size -->
+	  <!-- SR_size refer to square root of the group_size -->
 	  myChart.addMeasureAxis("z", "SR_size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
-	  mySeries.addOrderRule(["(2,3]", "(3,4]", "(4,5]", "(5,7]", "(7,8]", "(8,9]", "(9,10]","(10,11]","(11,12]","(12,13]","(13,14]","(14,15]","(15,16]","(16,17]","(17,18]"]);
+	<!-- use getTooltipText method to change the text when object is hovered -->
+	  mySeries.getTooltipText = function (e) {		
+				var SR_Z=e.zValue*e.zValue;
+                return [	
+				group_name+":"+e.key.replace("____",""),
+				x_name+":"+e.xValue.toFixed(1).toString(),
+				y_name+":"+e.yValue.toFixed(1).toString(),
+                  "group_size:   "+Math.floor(SR_Z).toString()
+                ];
+            };
+	  mySeries.addOrderRule(['ISCED 5A, 6','ISCED 5B','ISCED 4','ISCED 3A','ISCED 3B, C','ISCED 2','ISCED 1','None']);
+	  var Series_array=["None","ISCED 1","ISCED 2","ISCED 3A, ISCED 4","ISCED 3B, C","ISCED 5B","ISCED 5A, 6"];
+	  var arrayLength = Series_array.length;
+	  for (var i = 0; i < arrayLength; i++) {
+		myChart.assignColor(Series_array[i], colors[i],"#41b6c4",1);
+       };
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
     });
-	<!-- when the audience select one option from the box, code below invoke function updateChart for chart update -->
+	<!-- when the audience change option in the selection box, code below invoke function updateChart for chart update -->
     d3.select('#student_score')
 	.on('change', function() {
 		var newData = d3.select(this).property('value');
@@ -76,23 +111,39 @@
 		updateChart();
 	});
 	
-	
+	<!-- This function will be called whenever the option in selection box is changed -->
+	<!-- and it will update the chart according to the new option -->
 	function updateChart() {
 	d3.select("svg").remove();
 	var svg = dimple.newSvg("#chartContainer", 590, 460);
 	if(group_name=='Parents_education_year'){
-	d3.csv("/data/data_PARED_cut1.csv", function (data) {
+	d3.csv("/data/data_PARED_cut2.csv", function (data) {
       var myChart = new dimple.chart(svg, data);
       myChart.setBounds(80, 80, 480, 300)
       myChart.addMeasureAxis("x", x_name);
       myChart.addMeasureAxis("y", y_name);
 	  myChart.addMeasureAxis("z", "SR_size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
-	  mySeries.addOrderRule(["(2,3]", "(3,4]", "(4,5]", "(5,7]", "(7,8]", "(8,9]", "(9,10]","(10,11]","(11,12]","(12,13]","(13,14]","(14,15]","(15,16]","(16,17]","(17,18]"]);
+	  mySeries.getTooltipText = function (e) {		
+				var SR_Z=e.zValue*e.zValue;
+                return [	
+				group_name+":"+e.key.replace("____",""),
+				x_name+":"+e.xValue.toFixed(1).toString(),
+				y_name+":"+e.yValue.toFixed(1).toString(),
+                  "group_size:   "+Math.floor(SR_Z).toString()
+                ];
+            };
+	  mySeries.addOrderRule(['(16,18]','(15,16]','(14,15]','(12,13]','(11,12]','(10,11]','(7,10]','(2,7]','(13,14]']);
+	  var Series_array=["(2,7]","(7,10]","(10,11]","(11,12]","(12,13]","(13,14]","(14,15]","(15,16]","(16,18]"];
+	  var arrayLength = Series_array.length;
+	  for (var i = 0; i < arrayLength; i++) {
+		myChart.assignColor(Series_array[i], colors[i],"#41b6c4",1);
+       };
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
     });
 	} else if(group_name=='Parents_education_level'){
+	<!-- select corresponding data and updata the chart -->
 	d3.csv("/data/data_HISCED.csv", function (data) {
       var myChart = new dimple.chart(svg, data);
       myChart.setBounds(80, 80, 480, 300)
@@ -100,7 +151,21 @@
       myChart.addMeasureAxis("y", y_name);
 	  myChart.addMeasureAxis("z", "SR_size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
-	  mySeries.addOrderRule(["None" , "ISCED 1","ISCED 2","ISCED 3B, C","ISCED 3A","ISCED 4","ISCED 5B","ISCED 5A, 6"]);
+	  mySeries.getTooltipText = function (e) {		
+				var SR_Z=e.zValue*e.zValue;
+                return [	
+				group_name+":"+e.key.replace("____",""),
+				x_name+":"+e.xValue.toFixed(1).toString(),
+				y_name+":"+e.yValue.toFixed(1).toString(),
+                  "group_size:   "+Math.floor(SR_Z).toString()
+                ];
+            };
+	  mySeries.addOrderRule(['ISCED 5A, 6','ISCED 5B','ISCED 4','ISCED 3A','ISCED 3B, C','ISCED 2','ISCED 1','None']);
+	  var Series_array=["None","ISCED 1","ISCED 2","ISCED 3A, ISCED 4","ISCED 3B, C","ISCED 5B","ISCED 5A, 6"];
+	  var arrayLength = Series_array.length;
+	  for (var i = 0; i < arrayLength; i++) {
+		myChart.assignColor(Series_array[i], colors[i],"#41b6c4",1);
+       };
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
     });
@@ -112,7 +177,21 @@
       myChart.addMeasureAxis("y", y_name);
 	  myChart.addMeasureAxis("z", "SR_size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
+	  mySeries.getTooltipText = function (e) {		
+				var SR_Z=e.zValue*e.zValue;
+                return [	
+				group_name+":"+e.key.replace("____",""),
+				x_name+":"+e.xValue.toFixed(1).toString(),
+				y_name+":"+e.yValue.toFixed(1).toString(),
+                  "group_size:   "+Math.floor(SR_Z).toString()
+                ];
+            };
 	  mySeries.addOrderRule(["Native","First-Generation","Second-Generation"]);
+	  var Series_array=["Native","First-Generation","Second-Generation"];
+	  var arrayLength = Series_array.length;
+	  for (var i = 0; i < arrayLength; i++) {
+		myChart.assignColor(Series_array[i], colors[i],"#41b6c4",1);
+       };	  
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
     });	
@@ -124,7 +203,21 @@
       myChart.addMeasureAxis("y", y_name);
 	  myChart.addMeasureAxis("z", "SR_size");
       var mySeries=myChart.addSeries(group_name, dimple.plot.bubble);
+	  mySeries.getTooltipText = function (e) {		
+				var SR_Z=e.zValue*e.zValue;
+                return [	
+				group_name+":"+e.key.replace("____",""),
+				x_name+":"+e.xValue.toFixed(1).toString(),
+				y_name+":"+e.yValue.toFixed(1).toString(),
+                "group_size:   "+Math.floor(SR_Z).toString()
+                ];
+            };
 	  mySeries.addOrderRule(["0-10 books ","11-25 books ","26-100 books ","101-200 books ","201-500 books ","More than 500 books"]);
+	  var Series_array=["0-10 books ","11-25 books ","26-100 books ","101-200 books ","201-500 books ","More than 500 books"];
+	  var arrayLength = Series_array.length;
+	  for (var i = 0; i < arrayLength; i++) {
+		myChart.assignColor(Series_array[i], colors[i],"#41b6c4",1);
+       };
       myChart.addLegend(60, 10, 510, 20, "right");
       myChart.draw();
 	});
@@ -132,4 +225,10 @@
 	};
   </script>
 </div>
+<!-- Here are some related links in case for further exploring of audience-->
+<div id = "links">
+    Links <br>
+    Pisa 2012 Results: <a href="http://www.oecd.org/pisa/keyfindings/pisa-2012-results.htm">http://www.oecd.org/pisa/keyfindings/pisa-2012-results.htm</a><br>
+    Student Questionaire: <a href="http://www.oecd.org/pisa/pisaproducts/PISA12_StQ_FORM_A_ENG.pdf">http://www.oecd.org/pisa/pisaproducts/PISA12_StQ_FORM_A_ENG.pdf</a><br>
+</div> 
 </html>

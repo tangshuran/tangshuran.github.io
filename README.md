@@ -10,7 +10,7 @@ The result illustrates that, statistically speaking, the students from more weal
 
 ##Design
 ### Design decisions
-####Original Version :http://tangshuran.me/report6/index_original.html
+####First Version :http://tangshuran.me/index1.html
 At first I intended to use point chart to represent each student with single point. 
 
 When I look around the dataset, I find that, most of the academic evaluation data are quantitive value, and family status is in both quantity and quality.
@@ -18,7 +18,7 @@ When I look around the dataset, I find that, most of the academic evaluation dat
 In this way, I decided to use the y axis to represent the academic scores, and x axis for the quantitive family status features. The catagorial family status is shown with different color. 
 
 However, the result came to be horrible. Because the student number is too large, all the points are overlapped, and the groups are also messed up together. We can hardly tell the trend or difference.
-####Final Version: http://tangshuran.me/report6/index.html
+####Second Version: http://tangshuran.me/index2.html
 Then I think, the bubble chart maybe a good idea. Each catagorial feature is grouped into groups. For each bubble, the x and y value is the mean of the whole group. The radius of one bubble shows its group size.
 
 Consequently, it is clearly shown that x and y value is positive correlated for the bubbles.

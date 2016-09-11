@@ -7,3 +7,10 @@ body {
   font-size: 12px;
   
 }
+#context {
+
+    width:540px;
+    display:block;
+    vertical-align:top;
+    }
+
