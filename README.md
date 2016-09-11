@@ -24,9 +24,14 @@ Then I think, the bubble chart maybe a good idea. Each catagorial feature is gro
 Consequently, it is clearly shown that x and y value is positive correlated for the bubbles.
 
 ####Final Version: http://tangshuran.me/index.html
-Context information and a summary for the data calculation are introduced. The meaning of the drop down menu is illustrated.
+Context information and a summary for the data calculation are introduced. 
+
+The meaning of the drop down menu is illustrated.
+
 For better understanding of the chart, the key finding is stated in the contxt paragraph.
 
+For Encodings, bubble radius is changed into the squared root of the group pupolation, and the tooltip is customized. The color palette of the chart is customized to sequential palettes.
+The order of the variable in the legend is also modified.
 
 
 ###Interaction or animation
